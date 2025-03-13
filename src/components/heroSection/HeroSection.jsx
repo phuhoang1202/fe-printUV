@@ -26,7 +26,7 @@ export default function HeroSection() {
 
       <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full bg-black/50 p-10 backdrop-blur-md'>
         <div className='flex flex-col items-center gap-8'>
-          <h1
+          {/* <h1
             style={{
               background: 'linear-gradient(to top, #0acffe, #495aff)',
               WebkitBackgroundClip: 'text',
@@ -35,9 +35,25 @@ export default function HeroSection() {
             className='font-bold uppercase lg:text-[70px] md:text-[30px] text-largerPrdName text-center'
           >
             MÁY IN UV CHẤT LƯỢNG CAO <br /> CÔNG NGHỆ HIỆN ĐẠI
-          </h1>
+          </h1> */}
+          <div className='w-full flex justify-center'>
+            <svg width='100%' height='auto' viewBox='0 0 1000 200' preserveAspectRatio='xMidYMid meet'>
+              <text
+                x='50%'
+                y='50%'
+                dy='.35em'
+                textAnchor='middle'
+                className='font-bold uppercase lg:text-[50px] md:text-[30px] text-largerPrdName'
+              >
+                MÁY IN UV CHẤT LƯỢNG CAO{' '}
+                <tspan x='50%' dy='1.2em'>
+                  CÔNG NGHỆ HIỆN ĐẠI
+                </tspan>
+              </text>
+            </svg>
+          </div>
 
-          <p className='mb-9 font-semibold text-white lg:text-[24px] text-textPrd sm:leading-[1.44] text-center'>
+          <p className='mb-9 font-semibold text-white lg:text-[20px] text-textPrd sm:leading-[1.44] text-center'>
             Giải pháp in UV chuyên nghiệp, sắc nét trên mọi chất liệu. Độ bền màu vượt trội, tốc độ in nhanh, đáp ứng
             mọi nhu cầu in ấn.
           </p>

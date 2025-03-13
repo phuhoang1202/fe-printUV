@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 // import Logo from '@assets/images/logo/LogoBgCaro.png'
 // import IconDark from '@assets/icons/IconDark'
 // import IconUnDark from '@assets/icons/IconUnDark'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import iconSearch from '@assets/images/IconSearch.svg'
 import { Button, Dropdown, Menu } from 'antd'
 import FlagKorea from '@assets/images/flag/FlagKorea.svg'
@@ -13,6 +13,7 @@ import FlagVN from '@assets/images/flag/FlagVN.svg'
 import FlagAsia from '@assets/images/flag/FlagAsia.svg'
 import IconArrowDownFill from '@assets/images/IconArrowDownFill.svg'
 import IconMenu from '@assets/images/IconMenu.svg'
+import LogoNoBg from '@assets/images/Logo/LogoNoBg.png'
 
 export default function NewNavbar() {
   const [darkMode, setDarkMode] = useState(
@@ -20,44 +21,13 @@ export default function NewNavbar() {
       (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
   )
 
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+
   const [scrolling, setScrolling] = useState(false)
   const [isAllMenuVisible, setAllMenuVisible] = useState(false)
   const [valueSearch, setValueSearch] = useState('')
   const [language, setLanguage] = useState('')
-
-  const menu = (
-    <Menu>
-      <Menu.Item>
-        <div className='flex items-center gap-3' onClick={() => handleLanguageChange('vi', 'VND')}>
-          <img src={FlagVN} alt='icon' />
-          Việt Nam
-        </div>
-      </Menu.Item>
-      <Menu.Item>
-        <div className='flex items-center gap-3' onClick={() => handleLanguageChange('zh-CN', 'CNH')}>
-          <img src={FlagChina} alt='icon' />
-          China
-        </div>
-      </Menu.Item>
-
-      <Menu.Item>
-        <div className='flex items-center gap-3' onClick={() => handleLanguageChange('en', 'USD')}>
-          <img src={FlagAsia} alt='icon' />
-          Global
-        </div>
-      </Menu.Item>
-    </Menu>
-  )
-
-  const menuItems = [
-    { name: 'Trang chủ', href: '#home' },
-    { name: 'Tất cả sản phẩm', href: '#about' },
-    { name: 'Bài viết', href: '#pricing' },
-    { name: 'Chính sách', href: '#question' },
-    { name: 'Hỗ trợ khách hàng', href: '#content' },
-    { name: 'Giới thiệu', href: '#content' },
-    { name: 'Liên hệ', href: '#content' },
-  ]
 
   const items = [
     { key: 'all-product', label: 'Tất cả sản phẩm', href: '/all-product' },
@@ -65,6 +35,7 @@ export default function NewNavbar() {
     {
       key: 'policy',
       label: 'Chính sách',
+      href: '/chinh-sach/dieu-khoan-su-dung',
       children: [
         { key: 'terms', label: 'Điều khoản sử dụng', href: '/chinh-sach/dieu-khoan-su-dung' },
         { key: 'payment', label: 'Phương thức thanh toán', href: '/chinh-sach/phuong-thuc-thanh-toan' },
@@ -84,8 +55,8 @@ export default function NewNavbar() {
         { key: 'service-feedback', label: 'Phản ánh dịch vụ', href: '/ho-tro-khach-hang/phan-anh-dich-vu' },
       ],
     },
-    { key: 'about', label: 'Giới thiệu', href: '/about' },
-    { key: 'contact', label: 'Liên hệ', href: '/contact' },
+    { key: 'about', label: 'Giới thiệu', href: '/ve-chung-toi' },
+    { key: 'contact', label: 'Liên hệ', href: '/lien-he' },
   ]
 
   useEffect(() => {
@@ -123,15 +94,15 @@ export default function NewNavbar() {
 
   return (
     <div
-      className={`fixed left-0 top-0 z-50 flex w-full items-center transition-all border-b-2 lg:py-0 py-2 duration-300 ${
+      className={`fixed left-0 top-0 z-50 flex w-full items-center transition-all lg:py-0 py-2 duration-300 ${
         scrolling ? 'stickyyy ' : ''
       }`}
     >
       <div className='w-full px-10'>
         <div className='relative flex items-center justify-between w-full'>
           <div>
-            <Link to={'/'} className='flex items-center gap-0'>
-              {/* <img src={Logo} alt='logo' className='header-logo w-20' /> */}
+            <Link to={'/'} className='flex items-center gap-2'>
+              <img src={LogoNoBg} alt='logo' className='header-logo w-14' />
               <strong className='lg:text-[28px] font-bold text-textPrd uppercase text-logo'>BigColor</strong>
             </Link>
           </div>
@@ -145,7 +116,7 @@ export default function NewNavbar() {
                       <Link
                         to={item.href}
                         className={`${
-                          scrolling ? 'text-[#3B3B3B' : 'text-white'
+                          scrolling ? 'text-[#3B3B3B] ' : 'text-white'
                         } mx-8 flex py-2 lg:text-primaryPrdName font-medium transition-all duration-300 hover:text-gray-300  lg:ml-7 lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 xl:ml-10`}
                       >
                         {item.label}
@@ -174,7 +145,7 @@ export default function NewNavbar() {
             <div className='relative'>
               <input
                 type='text'
-                className='rounded-xl lg:pr-10 pr-8 py-3 w-full lg:w-52 lg:h-10 h-9 pl-4 custom-placeholder'
+                className='rounded-xl lg:pr-10 pr-8 py-3 w-full lg:w-60 lg:h-10 h-9 pl-4 custom-placeholder'
                 style={{ border: '1px solid #D3D2D2' }}
                 // placeholder={t('inputSearch')}
                 placeholder={'Tìm kiếm sản phẩm ...'}

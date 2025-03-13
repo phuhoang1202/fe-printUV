@@ -860,7 +860,50 @@ input[type='number']::-webkit-inner-spin-button {
 }
 
 .text-logo {
-  background: linear-gradient(to top, #00c6fb, #005bea);
+  background: linear-gradient(to top, #1cb5e0, #000046);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.bg-footer {
+  background: linear-gradient(to top, #e0eafc, #cfdef3);
+}
+
+/* Text header */
+/* svg {
+  width: 100%;
+  height: 100%;
+} */
+
+text {
+  animation: stroke 5s forwards;
+  stroke-width: 2;
+  stroke: #365fa0;
+  font-size: 100px;
+}
+
+@keyframes stroke {
+  0% {
+    fill: rgba(72, 138, 204, 0);
+    stroke: rgba(54, 95, 160, 1);
+    stroke-dashoffset: 25%;
+    stroke-dasharray: 0 50%;
+    stroke-width: 2;
+  }
+  70% {
+    fill: rgba(72, 138, 204, 0);
+    stroke: rgba(54, 95, 160, 1);
+  }
+  80% {
+    fill: rgba(72, 138, 204, 0);
+    stroke: rgba(54, 95, 160, 1);
+    stroke-width: 3;
+  }
+  100% {
+    fill: rgba(72, 138, 204, 1);
+    stroke: rgba(54, 95, 160, 0);
+    stroke-dashoffset: -25%;
+    stroke-dasharray: 50% 0;
+    stroke-width: 0;
+  }
 }

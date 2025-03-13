@@ -39,6 +39,7 @@ import ServiceReflection from '@pages/user/customerMenu/ServiceReflection.jsx'
 import CustomerSupportMenu from '@components/allMenu/navigateMenu/CustomerSupportMenu.jsx'
 import Introduce from '@pages/user/introduce/Introduce.jsx'
 import Contact from '@pages/user/contact/Contact.jsx'
+import AboutPage from '@pages/user/aboutPage/AboutPage.jsx'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -106,6 +107,7 @@ function App() {
 
           <Route path='about-us' element={<AboutUs />} />
           <Route path='service' element={<Service />} />
+          <Route path='ve-chung-toi' element={<AboutPage />} />
 
           <Route path='chinh-sach' element={<NavigateMenu />}>
             <Route path='dieu-khoan-su-dung' element={<TermsOfUse />} />
@@ -126,7 +128,7 @@ function App() {
 
           <Route path='news-page' element={<NewsPage />} />
           <Route path='introduce' element={<Introduce />} />
-          <Route path='contact' element={<Contact />} />
+          <Route path='lien-he' element={<Contact />} />
         </Route>
         <Route
           path='/admin/*'

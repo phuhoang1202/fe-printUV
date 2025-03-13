@@ -56,7 +56,7 @@ export default function NavigateMenu() {
   }
 
   return (
-    <div className='max-w-7xl mx-auto lg:mt-24 mt-28'>
+    <div className='max-w-7xl mx-auto lg:mt-10 mt-5'>
       {/* Dropdown menu for mobile */}
       <div className='lg:hidden block w-full px-4'>
         <Dropdown overlay={mobileMenu} placement='bottomCenter' trigger={['click']}>

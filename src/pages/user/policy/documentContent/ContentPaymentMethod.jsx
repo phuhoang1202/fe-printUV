@@ -1,8 +1,6 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 export default function ContentPaymentMethod() {
-  const { t } = useTranslation()
   const addressCompany = [
     {
       id: 1,

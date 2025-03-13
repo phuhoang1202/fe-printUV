@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import LogoNoText from '@assets/icons/logo/logoNoText.jpg'
-import { useTranslation } from 'react-i18next'
+import LogoNoBg from '@assets/images/Logo/LogoNoBg.png'
+import bgFooter from '@assets/images/users/bgFooter.png'
 
 export default function Footer() {
-  const { t } = useTranslation()
   const [time, setTime] = useState(new Date())
 
   useEffect(() => {
@@ -131,18 +130,18 @@ export default function Footer() {
   ]
 
   return (
-    <div className=' relative mt-8 border-t bg-[#090E34] text-white py-8'>
+    <div className='relative mt-8 border-t text-[#3B3B3B] py-10'>
       <div className='max-w-7xl w-full mx-auto  lg:my-6 my-4 flex flex-col md:flex-row justify-between items-start lg:px-0 px-5'>
         <div className='flex items-start gap-4 max-w-2xl'>
-          <div className='w-20 h-20'>
-            <img src={LogoNoText} alt='photo' className='w-full h-full object-cover ' />
+          <div className='w-20 '>
+            <img src={LogoNoBg} alt='photo' className='w-full h-full object-cover ' />
           </div>
           <div>
             <div>
-              <div className='font-bold lg:text-bigPrdName text-largerPrdName uppercase text-white'>
-                <strong>bigcolor việt nam</strong>
+              <div className='font-bold lg:text-bigPrdName text-largerPrdName uppercase text-[#3B3B3B]'>
+                <strong className='text-logo'>bigcolor việt nam</strong>
               </div>
-              <p className='text-white font-semibold'>
+              <p className='text-[#3B3B3B] font-semibold'>
                 Bigcolor Việt Nam cung cấp máy in UV chất lượng cao, đáp ứng mọi nhu cầu in ấn chuyên nghiệp.
               </p>
             </div>
@@ -185,12 +184,12 @@ export default function Footer() {
           return (
             <div key={index}>
               <div>
-                <strong className=' uppercase'>{infor.title}</strong>
+                <strong className='uppercase'>{infor.title}</strong>
               </div>
               <div className='flex flex-col gap-2 mt-4'>
                 {infor.content.map((el, index) => (
                   <div className='flex flex-col gap-4' key={index}>
-                    <Link to={el.linkHref} className='font-medium hover:underline hover:text-blue-500'>
+                    <Link to={el.linkHref} className='font-medium text-[#3B3B3B] transition hover:opacity-75'>
                       {el.subContent}
                     </Link>
                   </div>
@@ -199,59 +198,6 @@ export default function Footer() {
             </div>
           )
         })}
-      </div>
-
-      <div>
-        <span className='absolute left-0 top-0'>
-          <svg width={200} height={250} viewBox='0 0 495 470' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <circle cx={55} cy={442} r={138} stroke='white' strokeOpacity='0.04' strokeWidth={50} />
-            <circle cx={446} r={39} stroke='white' strokeOpacity='0.04' strokeWidth={20} />
-            <path
-              d='M245.406 137.609L233.985 94.9852L276.609 106.406L245.406 137.609Z'
-              stroke='white'
-              strokeOpacity='0.08'
-              strokeWidth={12}
-            />
-          </svg>
-        </span>
-
-        <span className='absolute top-0 right-0'>
-          <svg width={200} height={250} viewBox='0 0 495 470' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <circle cx={55} cy={442} r={138} stroke='white' strokeOpacity='0.04' strokeWidth={50} />
-            <circle cx={446} r={39} stroke='white' strokeOpacity='0.04' strokeWidth={20} />
-            <path
-              d='M245.406 137.609L233.985 94.9852L276.609 106.406L245.406 137.609Z'
-              stroke='white'
-              strokeOpacity='0.08'
-              strokeWidth={12}
-            />
-          </svg>
-        </span>
-
-        <span className='absolute bottom-0 left-0'>
-          <svg width={200} height={250} viewBox='0 0 493 470' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <circle cx={462} cy={5} r={138} stroke='white' strokeOpacity='0.04' strokeWidth={50} />
-            <circle cx={49} cy={470} r={39} stroke='white' strokeOpacity='0.04' strokeWidth={20} />
-            <path
-              d='M222.393 226.701L272.808 213.192L259.299 263.607L222.393 226.701Z'
-              stroke='white'
-              strokeOpacity='0.06'
-              strokeWidth={13}
-            />
-          </svg>
-        </span>
-        <span className='absolute bottom-0 right-0'>
-          <svg width={200} height={250} viewBox='0 0 493 470' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <circle cx={462} cy={5} r={138} stroke='white' strokeOpacity='0.04' strokeWidth={50} />
-            <circle cx={49} cy={470} r={39} stroke='white' strokeOpacity='0.04' strokeWidth={20} />
-            <path
-              d='M222.393 226.701L272.808 213.192L259.299 263.607L222.393 226.701Z'
-              stroke='white'
-              strokeOpacity='0.06'
-              strokeWidth={13}
-            />
-          </svg>
-        </span>
       </div>
     </div>
   )
