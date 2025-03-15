@@ -15,38 +15,12 @@ export default function BestProduct({ addToWishList }) {
   const [pageNumber, setPageNumber] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [bestProducts, setBestProducts] = useState([])
-  const getUserId = JSON.parse(getUserInfor() || null)
-  // const [language, setLanguage] = useState(JSON.parse(localStorage.getItem('language')) || 'ko')
-
-  const [unit, setUnit] = useState(JSON.parse(localStorage.getItem('exchangePrice')) || 'KRW')
-
-  useEffect(() => {
-    const getUnitLocal = JSON.parse(localStorage.getItem('exchangePrice')) || 'KRW'
-    // const getLanguage = JSON.parse(localStorage.getItem('language')) || 'ko'
-    // setLanguage(getLanguage)
-    setUnit(getUnitLocal)
-  }, [])
 
   const fetchBestProducts = async () => {
     try {
       setIsLoading(true)
-      const response = await product.getProductByType({
-        type: 'best',
-        currency: unit,
-        pageNumber: pageNumber,
-        pageSize: 10,
-        userId: getUserId?.id,
-        // language,
-        sort: 'price',
-        sortBy: 'desc',
-      })
-      const result = await Promise.all(
-        response.data.content.map(async (product) => {
-          product.imageMain = product?.productImages.find((el) => el.main) || product.productImages[0]
-          return product
-        }),
-      )
-      setBestProducts(result)
+      const response = await product.getAllPrds(10, 3)
+      setBestProducts(response.data.data.items)
     } catch (error) {
       console.error('Error fetching recommended products')
     } finally {
@@ -55,10 +29,8 @@ export default function BestProduct({ addToWishList }) {
   }
 
   useEffect(() => {
-    if (unit) {
-      fetchBestProducts()
-    }
-  }, [pageNumber, unit])
+    fetchBestProducts()
+  }, [])
 
   if (Array.isArray(bestProducts) && bestProducts.length > 3) {
     for (let i = 3; i <= bestProducts.length; i++) {
@@ -81,7 +53,7 @@ export default function BestProduct({ addToWishList }) {
   }
 
   return (
-    <div className='mt-10 w-full py-4 bg-[#F7F7F1]'>
+    <div className=' w-full lg:py-20 py-10 bg-[#F7F7F1]'>
       <div className='lg:max-w-7xl mx-auto lg:px-0 px-4'>
         <div className='font-bold lg:text-bigPrdName text-largerPrdName'>Sản phẩm hot</div>
         <span className='inline-block h-[2px] w-10 bg-[#F14646] mb-6' />

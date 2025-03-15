@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import IconHeart from '@assets/images/IconHeart.svg'
-import IconHeartActive from '@assets/images/IconHeartActive.svg'
-import IconStar from '@assets/images/IconStar.svg'
 import IconLeft from '@assets/images/IconLeft.svg'
 import IconRight from '@assets/images/IconRight.svg'
-import { constants as c } from '@constants'
 import { Modal, Skeleton } from 'antd'
 import { product } from '@services/user/product'
-import { Link } from 'react-router-dom'
-import { getToken, getUserInfor } from '@utils/auth'
-import { Tooltip } from 'antd'
-import { useTranslation } from 'react-i18next'
-import { formatPrice, formatPriceMultilingual } from '@utils/index'
 import ImageError from '@assets/images/ImageError.svg'
 import SeeMore from '@components/seeMore/SeeMore'
 import Product from './Product'
@@ -22,55 +13,14 @@ export default function ProductSuggest() {
   const [pageSize, setPageSize] = useState(6)
   const [isLoading, setIsLoading] = useState(true)
 
-  // const [language, setLanguage] = useState(JSON.parse(localStorage.getItem('language')) || 'ko')
-  const getUserId = JSON.parse(getUserInfor() || null)
-  const { t } = useTranslation()
-  const [unit, setUnit] = useState(JSON.parse(localStorage.getItem('exchangePrice')) || 'KRW')
   // const token = getToken()
-
-  // Modal navigate login
-  const [openModal, setOpenModal] = useState(false)
-  const [confirmLoading, setConfirmLoading] = useState(false)
-
-  const handleOk = () => {
-    setConfirmLoading(true)
-
-    setOpenModal(false)
-    setConfirmLoading(false)
-
-    navigate('/login')
-  }
-  const handleCancel = () => {
-    setOpenModal(false)
-  }
-
-  useEffect(() => {
-    const getUnitLocal = JSON.parse(localStorage.getItem('exchangePrice')) || 'KRW'
-    // const getLanguage = JSON.parse(localStorage.getItem('language'))
-    // setLanguage(getLanguage)
-    setUnit(getUnitLocal)
-  }, [])
 
   const fetchRecommendProducts = async () => {
     try {
       setIsLoading(true)
-      const response = await product.getProductByType({
-        type: 'recommend',
-        currency: unit,
-        pageNumber: pageNumber,
-        pageSize: pageSize,
-        userId: getUserId?.id,
-        sort: '',
-        sortBy: 'desc',
-      })
-      const result = await Promise.all(
-        response.data.content.map(async (product) => {
-          product.imageMain = product.productImages.find((el) => el.main) || product.productImages[0]
+      const response = await product.getAllPrds(10, 0)
 
-          return product
-        }),
-      )
-      setRecommendProducts(result)
+      setRecommendProducts(response.data.data.items)
     } catch (error) {
       console.error('Error fetching recommended products')
     } finally {
@@ -106,7 +56,7 @@ export default function ProductSuggest() {
       <span className='inline-block h-[2px] w-10 bg-[#F14646] mb-6' />
 
       <div className='relative'>
-        <div className='lg:grid lg:grid-cols-4 gap-6 lg:pb-0 pb-4 lg:overflow-hidden overflow-x-auto flex'>
+        <div className='lg:grid lg:grid-cols-4 gap-6 lg:py-2 pb-4 lg:overflow-hidden overflow-x-auto flex'>
           {isLoading
             ? Array.from({ length: 6 }).map((_, index) => (
                 <div
@@ -120,14 +70,6 @@ export default function ProductSuggest() {
                 </div>
               ))
             : recommendProducts.map((product, index) => {
-                const arrCheck = ['detail', 'product']
-                const mainImage = product.productImages.find((image) => image.main === true)
-                const productImage = product.productImages.find((image) => image.imageType === 'product')
-                const imageToShow = mainImage || productImage
-                const imageUrl = imageToShow?.imageUrl || ''
-                const isImageMatched = arrCheck.some((prefix) => imageUrl?.startsWith(prefix))
-                const finalImageUrl = isImageMatched ? `${c.DOMAIN_IMG}${imageUrl}` : imageUrl
-
                 return <Product item={product} index={index} />
               })}
         </div>
@@ -144,36 +86,6 @@ export default function ProductSuggest() {
       <div className='flex justify-center mt-4'>
         <SeeMore />
       </div>
-
-      {/* Modal navigate login */}
-      <Modal open={openModal} confirmLoading={confirmLoading} onCancel={handleCancel} footer={false} centered>
-        <div>
-          <div className='font-semibold text-textPrd flex flex-col justify-center items-center mt-4 gap-2'>
-            {/* <div>{t('loginText1')} </div> */}
-            <div>{t('loginText2')}</div>
-          </div>
-        </div>
-
-        <div className='flex items-center justify-center gap-6 mt-8'>
-          <div>
-            <button
-              className='font-semibold text-normal h-11 min-w-36 rounded-lg'
-              style={{ border: '2px solid black' }}
-              onClick={handleCancel}
-            >
-              {t('btnCancel')}
-            </button>
-          </div>
-          <div>
-            <button
-              className='text-white bg-[#D1B584] font-semibold text-normal h-11 min-w-36 rounded-lg'
-              onClick={handleOk}
-            >
-              {t('loginBtn')}
-            </button>
-          </div>
-        </div>
-      </Modal>
     </div>
   )
 }

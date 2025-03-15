@@ -32,20 +32,66 @@ export default function Contact() {
   ]
 
   return (
-    <div>
+    <div className='relative isolate overflow-hidden '>
+      {/* bg nền */}
       <div
-        className='overflow-hidden shadow-md relative'
-        style={{ background: 'linear-gradient(30deg, #000046, #1CB5E0)' }}
+        className='absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]'
+        aria-hidden='true'
       >
-        <div className='pt-16 pb-28 max-w-7xl mx-auto relative'>
-          <div className='flex items-start gap-4'>
-            <div>
+        <div
+          className='aspect-[1108/632] w-[69.25rem] h-[400px]'
+          style={{
+            background: 'linear-gradient(to right, #80caff, #4f46e5)',
+            opacity: 0.6,
+            clipPath:
+              'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
+          }}
+        ></div>
+      </div>
+
+      {/* bg nền */}
+      <div
+        className='absolute left-[calc(50%-1rem)] top-0 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:bottom-[calc(50%-10rem)] xl:right-[calc(50%-10rem)]'
+        aria-hidden='true'
+      >
+        <div
+          className='aspect-[1108/632] w-[69.25rem] h-[400px]'
+          style={{
+            background: 'linear-gradient(to right, #80caff, #4f46e5)',
+            opacity: 0.6,
+            clipPath:
+              'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
+          }}
+        ></div>
+      </div>
+
+      {/* bg nền */}
+      <div
+        className='absolute left-[calc(50%-1rem)] top-0 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-15rem)] lg:left-48 lg:top-[calc(50%-10rem)] xl:right-[calc(50%-2rem)]'
+        aria-hidden='true'
+      >
+        <div
+          className='aspect-[1108/632] w-[69.25rem] h-[400px]'
+          style={{
+            background: 'linear-gradient(to right, #80caff, #4f46e5)',
+            opacity: 0.6,
+            clipPath:
+              'polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)',
+          }}
+        ></div>
+      </div>
+
+      <div
+        className='overflow-hidden shadow-md relative lg:mt-24 mt-20'
+        // style={{ background: 'linear-gradient(30deg, #000046, #1CB5E0)' }}
+      >
+        <div className='pt-10 pb-28 max-w-7xl mx-auto relative'>
+          <div className='flex lg:flex-row flex-col items-start gap-4 '>
+            <div className='lg:w-1/2 w-full'>
               <div>
-                <h1 className='text-[40px] text-white font-bold uppercase tracking-wide'>Liên hệ</h1>
-                <p className='text-white font-medium'>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam voluptatum, nulla molestias pariatur
-                  temporibus odio adipisci cum unde. Ipsa, aspernatur tempore. Maxime harum itaque quibusdam dolorum,
-                  illum voluptatem fugiat dolorem!
+                <h1 className='text-[40px] text-[#3B3B3B] font-bold uppercase tracking-wide'>Liên hệ</h1>
+                <p className='text-[#3B3B3B] font-medium'>
+                  Hãy liên hệ với chúng tôi để có các sản phẩm với giá cả tốt nhất!
                 </p>
               </div>
 
@@ -105,16 +151,16 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className='w-full p-8'>
+            <div className='lg:w-1/2 w-full p-8'>
               <form className='border w-full max-w-4xl px-10 py-10 rounded-2xl bg-white hover:shadow-lg shadow-md flex flex-col gap-4 '>
                 <h3 className='text-bigPrdName font-semibold text-center capitalize'>Gửi tin nhắn cho chúng tôi</h3>
                 <div className='flex flex-col gap-1'>
-                  <label className='text-normal font-medium'>Name:</label>
+                  <label className='text-normal font-medium'>Tên khách hàng:</label>
                   <Input className='h-11' placeholder='Điền tên người dùng ...' />
                 </div>
 
                 <div className='flex flex-col gap-1'>
-                  <label className='text-normal font-medium'>Phone Number:</label>
+                  <label className='text-normal font-medium'>Số điện thoại:</label>
                   <Input className='h-11' placeholder='eg: 0123456789' />
                 </div>
 
@@ -124,7 +170,7 @@ export default function Contact() {
                 </div>
 
                 <div className='flex flex-col gap-1'>
-                  <label className='text-normal font-medium'>Message:</label>
+                  <label className='text-normal font-medium'>Nội dung:</label>
                   <TextArea rows={4} placeholder='Tối đa 250 ký tự' maxLength={250} />
                 </div>
 
@@ -136,7 +182,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div>
+        {/* <div>
           <span className='absolute left-0 top-0'>
             <svg width={200} height={250} viewBox='0 0 495 470' fill='none' xmlns='http://www.w3.org/2000/svg'>
               <circle cx={55} cy={442} r={138} stroke='white' strokeOpacity='0.04' strokeWidth={50} />
@@ -187,7 +233,7 @@ export default function Contact() {
               />
             </svg>
           </span>
-        </div>
+        </div> */}
       </div>
 
       {/* Map */}

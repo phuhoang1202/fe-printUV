@@ -44,17 +44,17 @@ export default function Footer() {
         {
           id: 1,
           subContent: 'Về Chúng tôi',
-          linkHref: '#',
+          linkHref: '/ve-chung-toi',
         },
-        {
-          id: 2,
-          subContent: 'Thông tin tuyển dụng',
-          linkHref: '#',
-        },
+        // {
+        //   id: 2,
+        //   subContent: 'Thông tin tuyển dụng',
+        //   linkHref: '/thong-tin-tuyen-dung',
+        // },
         {
           id: 3,
           subContent: 'Liên hệ',
-          linkHref: '#',
+          linkHref: '/lien-he',
         },
       ],
     },

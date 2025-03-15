@@ -1,9 +1,9 @@
 import React from 'react'
-import Culture from './Culture'
+import { Link } from 'react-router-dom'
 
-export default function AboutPage() {
+export default function AboutMore() {
   return (
-    <div className='relative isolate overflow-hidden '>
+    <section className=' relative '>
       {/* Đường kẻ */}
       {/* <svg
         className='absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]'
@@ -45,42 +45,34 @@ export default function AboutPage() {
         ></div>
       </div>
 
-      {/* Text */}
-      <div className='lg:mt-24 mt-16 lg:px-0 px-2 pt-10 py-20 max-w-7xl mx-auto text-[#3B3B3B]'>
-        <h1 className='lg:text-biggerName text-bigPrdName font-bold tracking-tight text-[#3B3B3B]'>
-          CÔNG TY TNHH MỘT THÀNH VIÊN BIG COLOR VIỆT NAM
-        </h1>
-        <div className='w-full flex flex-col lg:flex-row gap-10 mt-4'>
-          <div>
-            {/* Phần nội dung chữ */}
-            <img
-              src='https://mayinuv.vn/wp-content/uploads/2019/10/gioi-thieu-cong-ty-bigcolor.jpg'
-              alt='Giới thiệu công ty Big Color Việt Nam'
-              className='rounded-xl shadow-lg w-full max-w-md float-left mr-6 mb-4'
-            />
-            <p className='lg:text-primaryPrdName text-normal leading-8 text-[#3B3B3B]'>
+      <div className='container mx-auto py-16 px-4 sm:px-6 lg:px-8'>
+        <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-8'>
+          <div className='max-w-lg'>
+            <h2 className='lg:text-bigPrdName text-largerPrdName text-[#3B3B3B] font-semibold uppercase'>
+              Về chúng tôi
+            </h2>
+            <p className='mt-4 text-[#3B3B3B] text-primaryPrdName'>
               Công ty TNHH một thành viên Big Color Việt Nam thành lập vào năm 2011 tại Số 24 ngõ 286 đường Giáp bát,
               phường Giáp bát quận Hoàng Mai, Hà Nội, Việt Nam. Hiện nay công ty đã có sự phân phối của chi nhánh chính
               tại 78/7 Nguyễn Thị Tú, P. Bình Hưng Hòa B, Quận Bình Tân. Với hơn 10 năm kinh nghiệm trong lĩnh vực cung
               cấp các loại máy in thế hệ đời đầu cho đến các dòng MÁY IN UV khổ lớn nhỏ.
             </p>
-            <p className='mt-4 lg:text-primaryPrdName text-normal leading-8 text-[#3B3B3B]'>
-              Chúng tôi hiện là đại lý chính thức của thương hiệu máy in FORTUNE tại Việt Nam với các dòng sản phẩm hiện
-              đại nhưng có giá thành hợp lý. Chính sách{' '}
-              <span className='font-semibold text-blue-400'>BẢO DƯỠNG MIỄN PHÍ – </span>
-              <span className='font-semibold text-blue-400'>BẢO HÀNH TẬN NƠI</span> sẽ mang đến sự an tâm tuyệt đối cho
-              khách hàng.
-            </p>
-            <p className='mt-4 lg:text-primaryPrdName text-normal leading-8 text-[#3B3B3B]'>
-              Mang đến sự sáng tạo nghệ thuật đỉnh cao cùng thời đại 4.0 với các dòng sản phẩm có giá bán tốt nhất – giá
-              thành hợp lí nhất – cùng chính sách bảo hành tuyệt đối để khách hàng luôn tin tưởng sử dụng các sản phẩm
-              máy móc để tạo ra hiệu suất công việc cao nhất.
-            </p>
+            <div className='mt-8'>
+              <Link to={'/ve-chung-toi'} className='text-blue-500 hover:text-blue-600 font-medium'>
+                Xem thêm
+                <span className='ml-2'>→</span>
+              </Link>
+            </div>
+          </div>
+          <div className='mt-12 md:mt-0'>
+            <img
+              src='https://mayinuv.vn/wp-content/uploads/2019/10/gioi-thieu-cong-ty-bigcolor.jpg'
+              alt='About Us Image'
+              className='object-cover rounded-lg shadow-md'
+            />
           </div>
         </div>
-
-        <Culture />
       </div>
-    </div>
+    </section>
   )
 }

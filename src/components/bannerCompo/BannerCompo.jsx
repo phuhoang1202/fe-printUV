@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import bgSection2 from '@assets/images/section/bgSection2.png'
+import bgSection3 from '@assets/images/section/contactUs.webp'
 
 export default function BannerCompo() {
   const location = useLocation()
@@ -22,8 +23,8 @@ export default function BannerCompo() {
 
   return (
     <div
-      className='h-[40vh] text-white text-center grid bg-cover bg-center'
-      style={{ backgroundImage: `url(${bgSection2})` }}
+      className='h-[50vh] text-white text-center grid bg-cover bg-center'
+      style={{ backgroundImage: `url(${bgSection3})` }}
     >
       <div className='col-start-1 row-start-1 bg-gray-800 bg-opacity-70 w-full h-full' />
       <div className='col-start-1 row-start-1 mx-auto my-auto'>

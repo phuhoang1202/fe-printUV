@@ -19,7 +19,6 @@ import DetailProduct from '@pages/user/product/index.jsx'
 import AboutUs from '@pages/user/customerCenter/AboutUs.jsx'
 import Service from '@pages/user/customerCenter/Service.jsx'
 import NewsPage from '@pages/user/news/NewsPage.jsx'
-import CategoryComponent from '@pages/user/categoryMain/CategoryComponent.jsx'
 import SearchProduct from '@pages/user/product/featureProduct/SearchProduct.jsx'
 import NavigateMenu from '@components/allMenu/navigateMenu/NavigateMenu.jsx'
 import CancelMembership from '@pages/user/detailUser/personalInformation/CancelMembership.jsx'
@@ -91,9 +90,8 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path='product/:id' element={<DetailProduct />} />
-          <Route path='search-product' element={<SearchProduct />} />
-          <Route path='category' element={<CategoryComponent />} />
-          <Route path='category-product' element={<CategoryProduct />} />
+          <Route path='tim-kiem-san-pham' element={<SearchProduct />} />
+          <Route path='tat-ca-san-pham' element={<CategoryProduct />} />
           {/* <Route path='shopping-cart' element={<ShoppingCart />}>
             <Route index element={<CartProduct />} />
             <Route path='favorites' element={<FavoriteProducts />} />
@@ -126,7 +124,7 @@ function App() {
             <Route path='phan-anh-dich-vu' element={<ServiceReflection />} />
           </Route>
 
-          <Route path='news-page' element={<NewsPage />} />
+          <Route path='bai-viet' element={<NewsPage />} />
           <Route path='introduce' element={<Introduce />} />
           <Route path='lien-he' element={<Contact />} />
         </Route>

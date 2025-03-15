@@ -28,25 +28,21 @@ import { FileTextOutlined, PhoneOutlined, ShoppingCartOutlined } from '@ant-desi
 import PdfFlipBook from '@components/pageFlip/PdfFlipBook'
 
 export default function DetailProduct() {
-  const [selectedImage, setSelectedImage] = useState('')
   const [dataDetail, setDataDetail] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [exChangeRate, setExChangeRate] = useState(0)
   const param = useParams()
   const { id } = param
   const [currentIndex, setCurrentIndex] = useState(0)
   const navigate = useNavigate()
-  const [unit, setUnit] = useState(JSON.parse(localStorage.getItem('exchangePrice')) || 'KRW')
-  const [language, setLanguage] = useState(JSON.parse(localStorage.getItem('language')) || 'ko')
 
   const { t } = useTranslation()
-  const token = getToken()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
   const [isSmallMobile, setIsSmallMobile] = useState(window.innerWidth < 375)
 
   // img
   const [listImg, setListImg] = useState([])
   const [listImgProduct, setListImgProduct] = useState([])
+  const [selectedImage, setSelectedImage] = useState(listImgProduct?.[0] || '')
 
   // description
   const [dataDescription, setDataDescription] = useState('')
@@ -79,61 +75,14 @@ export default function DetailProduct() {
     },
   ]
 
-  // Modal check login
-  // Modal navigate login
-  const [openModal, setOpenModal] = useState(false)
-  const [confirmLoading, setConfirmLoading] = useState(false)
-
-  const handleOk = () => {
-    setConfirmLoading(true)
-
-    setOpenModal(false)
-    setConfirmLoading(false)
-
-    navigate('/login')
-  }
-  const handleCancel = () => {
-    setOpenModal(false)
-  }
-
-  useEffect(() => {
-    const getUnitLocal = JSON.parse(localStorage.getItem('exchangePrice')) || 'KRW'
-    const getLanguage = JSON.parse(localStorage.getItem('language')) || 'ko'
-    setLanguage(getLanguage)
-    setUnit(getUnitLocal)
-  }, [unit])
-
-  let getInfonUser = null
-
-  try {
-    const userInfo = getUserInfor()
-    if (userInfo) {
-      getInfonUser = JSON.parse(userInfo)
-    } else {
-      getInfonUser = {}
-    }
-  } catch (error) {
-    console.error('Error parsing user information:', error)
-    getInfonUser = {}
-  }
-
   const fetchData = async () => {
     try {
       setIsLoading(true)
-      const bodyPayload = {
-        currency: unit,
-        userId: getInfonUser.id,
-        productId: id,
-        // language,
-      }
-      const response = await product.getProductByIdAndUserId(bodyPayload)
-      const result = response.data
-      result.imageMain = result?.productImages.find((el) => el.main) || result.productImages[0]
-      setDataDetail(result)
+      const response = await product.getPrdById(id)
+      setDataDetail(response.data.data)
       setCheckData(200)
-      setListImg(response?.data.productImages)
-      setDataDescription(response?.data.description)
-      setExChangeRate(response?.data.exChangeRate)
+      setListImg(response?.data.data.imageUrls)
+      setSelectedImage(response?.data.data.imageUrls[0])
     } catch (error) {
       console.error('Error fetching product details:', error)
       setCheckData(error.status)
@@ -193,13 +142,13 @@ export default function DetailProduct() {
     }
   }
 
-  useEffect(() => {
-    const productImagesFiltered = listImg.filter((image) => image.imageType === 'product')
-    setListImgProduct(productImagesFiltered)
-  }, [listImg])
-
   const tabItems = [
-    { key: '1', label: 'Mô tả', content: <CollapseComponent dataDescription={dataDescription} /> },
+    {
+      key: '1',
+      label: 'Mô tả',
+      content: 'Mô tả sản phẩm',
+      // content: <CollapseComponent dataDescription={dataDescription} />
+    },
     { key: '2', label: 'Thông số kỹ thuật', content: <PdfFlipBook /> },
     { key: '3', label: 'Hướng dẫn sử dụng', content: 'Hướng dẫn sử dụng sản phẩm...' },
   ]
@@ -211,8 +160,7 @@ export default function DetailProduct() {
         <div>
           {checkData === 404 ? (
             <div className='flex flex-col justify-center items-center font-medium text-primaryPrdName mt-10 gap-4'>
-              {t('productExist')}
-              {/* <img src={ProductNotFound} alt='image' /> */}
+              Sản phẩm không tồn tại
             </div>
           ) : (
             <>
@@ -226,14 +174,9 @@ export default function DetailProduct() {
                       <div className='flex justify-between relative'>
                         <div>
                           <div className='flex flex-col gap-8'>
-                            {listImgProduct &&
-                              listImgProduct.length > 0 &&
-                              listImgProduct?.slice(currentIndex, currentIndex + MAX_IMAGES).map((image, index) => {
-                                const arrCheck = ['detail', 'product']
-                                const isImageMatched = arrCheck.some((prefix) => image?.imageUrl?.startsWith(prefix))
-                                const finalImageUrl = isImageMatched
-                                  ? `${c.DOMAIN_IMG}${image?.imageUrl}`
-                                  : image?.imageUrl
+                            {listImg &&
+                              listImg.length > 0 &&
+                              listImg?.slice(currentIndex, currentIndex + MAX_IMAGES).map((image, index) => {
                                 return (
                                   <div key={index}>
                                     <div
@@ -243,7 +186,7 @@ export default function DetailProduct() {
                                       onClick={() => setSelectedImage(image)}
                                     >
                                       <img
-                                        src={finalImageUrl}
+                                        src={image}
                                         alt={`Product ${index + currentIndex + 1}`}
                                         className='object-cover object-center rounded-lg h-full w-full'
                                         loading='lazy'
@@ -262,21 +205,14 @@ export default function DetailProduct() {
 
                       {/* Ảnh main */}
                       <div className='w-full relative'>
-                        <div className='w-full flex justify-center image-main'>
-                          {dataDetail?.productImages?.length > 0 && (
+                        <div className=' flex justify-center image-main'>
+                          {dataDetail?.imageUrls?.length > 0 && (
                             <div className='w-full h-full aspect-square'>
                               <Image
-                                // width={550}
+                                width={640}
                                 // style={{ width: '500' }}
                                 // height={isSmallMobile ? 200 : isMobile ? 300 : 514}
-                                src={(() => {
-                                  const arrCheck = ['detail', 'product']
-                                  const mainImage = selectedImage || dataDetail?.imageMain
-                                  const isImageMatched = arrCheck.some((prefix) =>
-                                    mainImage?.imageUrl?.startsWith(prefix),
-                                  )
-                                  return isImageMatched ? `${c.DOMAIN_IMG}${mainImage?.imageUrl}` : mainImage?.imageUrl
-                                })()}
+                                src={selectedImage}
                                 alt='Selected Product'
                                 className='object-cover w-full h-full rounded-lg aspect-square'
                                 loading='lazy'
@@ -334,7 +270,9 @@ export default function DetailProduct() {
                         </h2>
                         {/* Thông số */}
                         <div>
-                          <h3 className='font-semibold text-textPrd'>Thông số:</h3>
+                          <h3 className='font-semibold text-textPrd border-b-2 border-blue-500 inline-block pb-1'>
+                            Thông số:
+                          </h3>
                           <ul className='flex flex-col gap-2 mt-2'>
                             <li className='flex items-center gap-2'>
                               <div className='flex items-center gap-2'>
@@ -383,7 +321,9 @@ export default function DetailProduct() {
                         </div>
                         {/* Cam kết */}
                         <div>
-                          <h3 className='font-semibold text-textPrd'>Cam kết:</h3>
+                          <h3 className='font-semibold text-textPrd border-b-2 border-blue-500 inline-block pb-1'>
+                            Cam kết:
+                          </h3>
                           <div className='mt-2 flex flex-col gap-2'>
                             <div className='flex items-center gap-2'>
                               <img src={iconCheck} alt='icon' className='w-4' />
@@ -500,41 +440,6 @@ export default function DetailProduct() {
             </>
           )}
         </div>
-
-        {/* <BestProduct /> */}
-        {/* Best */}
-
-        {/* New */}
-        {/* <ProductNew /> */}
-        {/* Modal navigate login */}
-        <Modal open={openModal} confirmLoading={confirmLoading} onCancel={handleCancel} footer={false} centered>
-          <div>
-            <div className='font-semibold text-textPrd flex flex-col justify-center items-center mt-4 gap-2'>
-              {/* <div>{t('loginText1')} </div> */}
-              <div>{t('loginText2')}</div>
-            </div>
-          </div>
-
-          <div className='flex items-center justify-center gap-6 mt-8'>
-            <div>
-              <button
-                className='font-semibold text-normal h-11 min-w-36 rounded-lg'
-                style={{ border: '2px solid black' }}
-                onClick={handleCancel}
-              >
-                {t('btnCancel')}
-              </button>
-            </div>
-            <div>
-              <button
-                className='text-white bg-[#D1B584] font-semibold text-normal h-11 min-w-36 rounded-lg'
-                onClick={handleOk}
-              >
-                {t('loginBtn')}
-              </button>
-            </div>
-          </div>
-        </Modal>
       </div>
     </>
   )

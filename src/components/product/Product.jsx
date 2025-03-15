@@ -12,11 +12,6 @@ import ImageError from '@assets/images/ImageError.svg'
 export default function Product({ item, type, combinedArray, index, addToWishList, setBestProducts, setDataCategory }) {
   const [loading, setLoading] = useState(true)
   const [unit, setUnit] = useState('KRW')
-  const { t } = useTranslation()
-  //  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
-  //   const [isSmallMobile, setIsSmallMobile] = useState(window.innerWidth < 375)
-
-  const token = getToken()
 
   // Modal navigate login
   const [openModal, setOpenModal] = useState(false)
@@ -56,54 +51,13 @@ export default function Product({ item, type, combinedArray, index, addToWishLis
     )
   }
 
-  // Hàm xử lý yêu thích
-  const handleWishlistClick = async (productId, currentWishListStatus) => {
-    if (!token) {
-      setOpenModal(true)
-    } else {
-      try {
-        await addToWishList(productId)
-
-        if (type === 'best') {
-          setBestProducts((prevProducts) =>
-            prevProducts.map((product) =>
-              product.id === productId ? { ...product, wishList: !currentWishListStatus } : product,
-            ),
-          )
-        } else {
-          setDataCategory((prevProducts) =>
-            prevProducts.map((product) =>
-              product.id === productId ? { ...product, wishList: !currentWishListStatus } : product,
-            ),
-          )
-        }
-      } catch (error) {
-        console.error('Error updating wishlist', error)
-      }
-    }
-  }
-
-  // Kiểm tra và xử lý ảnh
-  const arrCheck = ['detail', 'product']
-
-  const mainImage = item.productImages.find((image) => image.main === true)
-  const productImage = item.productImages.find((image) => image.imageType === 'product')
-
-  const imageToShow = mainImage || productImage
-
-  const imageUrl = imageToShow?.imageUrl || ''
-
-  const isImageMatched = arrCheck.some((prefix) => imageUrl?.startsWith(prefix))
-
-  const finalImageUrl = isImageMatched ? `${c.DOMAIN_IMG}${imageUrl}` : imageUrl
-
   return (
     <section className='flex justify-center items-center w-full max-w-3xl gap-6'>
       <article className='relative w-80 bg-white shadow-[0px_8px_24px_rgba(149,157,165,0.2)] rounded-xl overflow-hidden group'>
         <div
           className='relative h-60 bg-cover bg-center transition-all duration-300 group-hover:scale-110'
           style={{
-            backgroundImage: `url(${finalImageUrl})`,
+            backgroundImage: item.imageUrls?.length > 0 ? `url(${item.imageUrls[0]})` : 'none',
           }}
         ></div>
         {type === 'best' && (
@@ -124,8 +78,8 @@ export default function Product({ item, type, combinedArray, index, addToWishLis
           <h3 className='text-lg font-semibold'>
             <Link to={`/product/${item.id}`}>
               <div className='font-medium lg:text-textPrd text-normal'>
-                <Tooltip title={item.productName} autoAdjustOverflow>
-                  <div className='truncate text-[#3B3B3B]'>{item.productName}</div>
+                <Tooltip title={item.name} autoAdjustOverflow>
+                  <div className='truncate text-[#3B3B3B]'>{item.name}</div>
                 </Tooltip>
               </div>
             </Link>

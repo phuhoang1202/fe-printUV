@@ -10,10 +10,6 @@ import { PhoneOutlined } from '@ant-design/icons'
 export default function HeroSection() {
   return (
     <div id='home' className='relative overflow-hidden lg:py-20 lg:h-screen h-[95vh] dark:bg-dark bg-[#090E34]'>
-      {/* <div className='absolute bottom-10 left-1/2 -translate-x-1/2 z-30'>
-        <Lottie animationData={Animation11} loop={true} className='lg:w-[150px] w-[120px]' />
-      </div> */}
-
       {/* Video Background */}
       <video
         className='absolute top-0 left-0 w-full h-full object-cover z-0 transform scale-x-[-1]'
@@ -24,7 +20,7 @@ export default function HeroSection() {
         playsInline
       />
 
-      <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full bg-black/50 p-10 backdrop-blur-md'>
+      <div className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full bg-black/50 p-10 '>
         <div className='flex flex-col items-center gap-8'>
           {/* <h1
             style={{
@@ -37,23 +33,29 @@ export default function HeroSection() {
             MÁY IN UV CHẤT LƯỢNG CAO <br /> CÔNG NGHỆ HIỆN ĐẠI
           </h1> */}
           <div className='w-full flex justify-center'>
-            <svg width='100%' height='auto' viewBox='0 0 1000 200' preserveAspectRatio='xMidYMid meet'>
+            <svg
+              width='100%'
+              height='100%'
+              viewBox='0 0 1400 400' // Tăng chiều rộng và chiều cao
+              preserveAspectRatio='xMidYMid slice' // Đảm bảo không méo chữ
+            >
               <text
                 x='50%'
-                y='50%'
-                dy='.35em'
+                y='50%' // Đẩy chữ lên để có thêm không gian
                 textAnchor='middle'
-                className='font-bold uppercase lg:text-[50px] md:text-[30px] text-largerPrdName'
+                fontWeight='bold'
+                fontSize='clamp(20px, 5vw, 80px)' // Điều chỉnh font-size linh hoạt
+                fill='blue'
               >
-                MÁY IN UV CHẤT LƯỢNG CAO{' '}
-                <tspan x='50%' dy='1.2em'>
+                MÁY IN UV CHẤT LƯỢNG CAO
+                <tspan x='50%' dy='1.4em'>
                   CÔNG NGHỆ HIỆN ĐẠI
                 </tspan>
               </text>
             </svg>
           </div>
 
-          <p className='mb-9 font-semibold text-white lg:text-[20px] text-textPrd sm:leading-[1.44] text-center'>
+          <p className='mb-9 font-semibold text-white lg:text-[20px] text-normal sm:leading-[1.44] text-center'>
             Giải pháp in UV chuyên nghiệp, sắc nét trên mọi chất liệu. Độ bền màu vượt trội, tốc độ in nhanh, đáp ứng
             mọi nhu cầu in ấn.
           </p>

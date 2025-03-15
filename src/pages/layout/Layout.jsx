@@ -8,13 +8,13 @@ import NewNavbar from '@components/navbar/NewNavbar'
 import BannerCompo from '@components/bannerCompo/BannerCompo'
 
 function LayoutComponent() {
-  const location = useLocation()
-  const isHome = location.pathname === '/'
+  // const location = useLocation()
+  // const isHome = location.pathname === '/'
   return (
     <>
       {/* <Navbar /> */}
       <NewNavbar />
-      {!isHome && <BannerCompo />}
+      {/* {!isHome && <BannerCompo />} */}
       <ScrollToTop />
       <ScrollToTopButton />
       <Outlet />

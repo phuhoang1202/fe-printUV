@@ -1,25 +1,17 @@
-import AllMenu from '@components/allMenu/AllMenu'
 import React, { useEffect, useState } from 'react'
 // import Logo from '@assets/images/logo/LogoBgCaro.png'
 // import IconDark from '@assets/icons/IconDark'
 // import IconUnDark from '@assets/icons/IconUnDark'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import iconSearch from '@assets/images/IconSearch.svg'
-import { Button, Dropdown, Menu } from 'antd'
-import FlagKorea from '@assets/images/flag/FlagKorea.svg'
-import FlagChina from '@assets/images/flag/FlagChina.svg'
-import FlagJapan from '@assets/images/flag/FlagJapan.svg'
-import FlagVN from '@assets/images/flag/FlagVN.svg'
-import FlagAsia from '@assets/images/flag/FlagAsia.svg'
-import IconArrowDownFill from '@assets/images/IconArrowDownFill.svg'
-import IconMenu from '@assets/images/IconMenu.svg'
 import LogoNoBg from '@assets/images/Logo/LogoNoBg.png'
 
 export default function NewNavbar() {
-  const [darkMode, setDarkMode] = useState(
-    localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
-  )
+  // const navigate = useNavigate()
+  // const [darkMode, setDarkMode] = useState(
+  //   localStorage.theme === 'dark' ||
+  //     (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+  // )
 
   const location = useLocation()
   const isHome = location.pathname === '/'
@@ -30,8 +22,8 @@ export default function NewNavbar() {
   const [language, setLanguage] = useState('')
 
   const items = [
-    { key: 'all-product', label: 'Tất cả sản phẩm', href: '/all-product' },
-    { key: 'news-page', label: 'Bài viết', href: '/news-page' },
+    { key: 'all-product', label: 'Tất cả sản phẩm', href: '/tat-ca-san-pham' },
+    // { key: 'news-page', label: 'Bài viết', href: '/bai-viet' },
     {
       key: 'policy',
       label: 'Chính sách',
@@ -48,6 +40,7 @@ export default function NewNavbar() {
     {
       key: 'support',
       label: 'Hỗ trợ khách hàng',
+      href: '/ho-tro-khach-hang/tu-van-khach-hang',
       children: [
         { key: 'consulting', label: 'Tư vấn khách hàng', href: '/ho-tro-khach-hang/tu-van-khach-hang' },
         { key: 'faq', label: 'Câu hỏi thường gặp', href: '/ho-tro-khach-hang/cau-hoi-thuong-gap' },
@@ -55,7 +48,7 @@ export default function NewNavbar() {
         { key: 'service-feedback', label: 'Phản ánh dịch vụ', href: '/ho-tro-khach-hang/phan-anh-dich-vu' },
       ],
     },
-    { key: 'about', label: 'Giới thiệu', href: '/ve-chung-toi' },
+    { key: 'about', label: 'Về chúng tôi', href: '/ve-chung-toi' },
     { key: 'contact', label: 'Liên hệ', href: '/lien-he' },
   ]
 
@@ -74,15 +67,15 @@ export default function NewNavbar() {
     }
   }, [])
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark')
-      localStorage.theme = 'dark'
-    } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.theme = 'light'
-    }
-  }, [darkMode])
+  // useEffect(() => {
+  //   if (darkMode) {
+  //     document.documentElement.classList.add('dark')
+  //     localStorage.theme = 'dark'
+  //   } else {
+  //     document.documentElement.classList.remove('dark')
+  //     localStorage.theme = 'light'
+  //   }
+  // }, [darkMode])
 
   const handleSearch = async () => {
     try {
@@ -95,11 +88,11 @@ export default function NewNavbar() {
   return (
     <div
       className={`fixed left-0 top-0 z-50 flex w-full items-center transition-all lg:py-0 py-2 duration-300 ${
-        scrolling ? 'stickyyy ' : ''
-      }`}
+        scrolling ? 'stickyyy' : ''
+      } ${!isHome ? 'border-b border-gray-200' : ''}`}
     >
       <div className='w-full px-10'>
-        <div className='relative flex items-center justify-between w-full'>
+        <div className='relative flex items-center justify-between '>
           <div>
             <Link to={'/'} className='flex items-center gap-2'>
               <img src={LogoNoBg} alt='logo' className='header-logo w-14' />
@@ -116,8 +109,8 @@ export default function NewNavbar() {
                       <Link
                         to={item.href}
                         className={`${
-                          scrolling ? 'text-[#3B3B3B] ' : 'text-white'
-                        } mx-8 flex py-2 lg:text-primaryPrdName font-medium transition-all duration-300 hover:text-gray-300  lg:ml-7 lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 xl:ml-10`}
+                          scrolling || !isHome ? 'text-[#3B3B3B] ' : 'text-white'
+                        } mx-8 flex py-2 lg:text-primaryPrdName font-medium transition-all duration-300 hover:text-gray-600 lg:ml-7 lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 xl:ml-10`}
                       >
                         {item.label}
                       </Link>

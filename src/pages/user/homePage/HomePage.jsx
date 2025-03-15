@@ -5,18 +5,19 @@ import Categories from '@components/categories/Categories'
 import Article from '@components/article/Article'
 import Partner from '@components/partner/Partner'
 import HeroSection from '@components/heroSection/HeroSection'
+import AboutMore from '../aboutPage/AboutMore'
 
 export default function HomePage() {
   return (
     <div>
       <HeroSection />
-      {/* <CarouselCommon items={items} /> */}
       <Features />
       <Categories />
       <ProductSuggest />
       <BestProduct />
-      <Article />
+      <AboutMore />
       <Partner />
+      <Article />
     </div>
   )
 }

@@ -1,11 +1,15 @@
 import { callApi, callApiNoAuthen } from '../../apis'
 
-const getAllPrds = () => {
-  return callApi(`/products`, 'get', null)
+const getAllPrds = (limit, offset, q, order) => {
+  return callApi(`/products?limit=${limit}&offset=${offset}`, 'get', null)
 }
 
 const getPrdById = (id) => {
-  return callApi(`/api/v1/product-user/find-by-id/${id}`, 'get', null)
+  return callApi(`/products/${id}`, 'get', null)
+}
+
+const searchPrd = (q) => {
+  return callApi(`/products?q=${q}`, 'get', null)
 }
 
 const wishListPrd = (form) => {
